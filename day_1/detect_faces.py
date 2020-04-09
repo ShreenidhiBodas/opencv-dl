@@ -25,6 +25,13 @@ net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
 # load the input image and construct an input blob for the image
 # by resizing to a fixed 300x300 pixels and then normalizing it
 image = cv2.imread(args["image"])
+
+downscale_percent = 15
+width = int(image.shape[1]*downscale_percent/100)
+height = int(image.shape[0]*downscale_percent/100)
+
+new_dim = (width, height)
+image = cv2.resize(image, new_dim)
 (h, w) = image.shape[:2]
 blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0,
 	(300, 300), (104.0, 177.0, 123.0))
@@ -34,7 +41,7 @@ blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0,
 print("[INFO] computing object detections...")
 net.setInput(blob)
 detections = net.forward()
-
+print(detections.shape)
 # loop over the detections
 for i in range(0, detections.shape[2]):
 	# extract the confidence (i.e., probability) associated with the
