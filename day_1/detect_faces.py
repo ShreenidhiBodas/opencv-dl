@@ -41,7 +41,7 @@ blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0,
 print("[INFO] computing object detections...")
 net.setInput(blob)
 detections = net.forward()
-print(detections.shape)
+print(detections)
 # loop over the detections
 for i in range(0, detections.shape[2]):
 	# extract the confidence (i.e., probability) associated with the
