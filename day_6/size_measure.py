@@ -6,7 +6,7 @@ from imutils import contours
 
 
 ap = argparse.ArgumentParser();
-ap.add_argument('-i', ='--image', help="Path to image")
+ap.add_argument('-i', '--image', help="Path to image")
 args = vars(ap.parse_args())
 
 image = cv2.imread(args["image"], cv2.IMREAD_UNCHANGED)
@@ -18,4 +18,3 @@ edged = cv2.dilate(edged, None, iterations=1)
 
 cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
-(cnts, _) = contours.sort_contours(cnts)
